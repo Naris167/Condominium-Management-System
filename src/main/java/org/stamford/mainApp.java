@@ -32,6 +32,8 @@ public class mainApp extends Application {
         stage.setTitle("Stamford-CMS");
         stage.setScene(scene);
         stage.show();
+        System.out.println("scene.fxml file URL is: " + this.getClass().getResource("scene.fxml").toExternalForm());
+
     }
 public static void main(String[] args) {
         launch(args);
