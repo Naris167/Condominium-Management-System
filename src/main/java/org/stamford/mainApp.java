@@ -11,61 +11,18 @@ import javafx.stage.Stage;
 import java.lang.reflect.Method;
 
 public class mainApp extends Application {
-    @Override
+@Override
     public void start(Stage stage) throws Exception {
-//        String myClass = getClass().toString();
-//        Parent root = FXMLLoader.load(getClass().getResource("scene.fxml"));
-//
-//        Scene scene = new Scene(root);
-//        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-//
-//        stage.setTitle("JavaFX and Gradle");
-//        stage.setScene(scene);
-//        stage.show();
+        String myClass = getClass().toString();
+        Parent root = FXMLLoader.load(getClass().getResource("scene.fxml"));
 
-        //Creating a Stack Pane
-        StackPane pane = new StackPane();
+        Scene scene = new Scene(root);
 
-        Label currentUserLabel = new Label("Current User: " + "None");
-        Label systemMsgLabel = new Label("You must login before using Stamford-CMS");
-        VBox vbox = new VBox(10); // 10 is spacing between vertical nodes
-//        vbox.getChildren().add(currentUserLabel);
-//        vbox.getChildren().add(systemMsgLabel);
-
-        for (int i =0; i < 10; i++) {
-            Label label = new Label("2 to the power of " + i + " is : " + Math.pow(2, i));
-            vbox.getChildren().add(label);
-        }
-
-        pane.getChildren().add(vbox);
-
-//        pane.getChildren().add(currentUserLabel);
-//        pane.getChildren().add(systemMsgLabel);
-
-        // Create a new scene
-        Scene scene = new Scene(pane);
-
-        // primary stage is created by the platform (JavaFX) already
         stage.setTitle("Stamford-CMS");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        // Reflection example:
-//        try {
-//            Class c = Class.forName("java.util.Iterator");
-//            // Class c = Class.forName("java.util.Stack");
-//            // Class c = Class.forName("java.util.ArrayList");
-//            Method m[] = c.getDeclaredMethods();
-//
-//            for (int i = 0; i < m.length; i++)
-//                System.out.println(m[i].toString());
-//        }
-//        catch (Throwable e) {
-//            System.err.println(e);
-//        }
-
+}
+public static void main(String[] args) {
         launch(args);
     }
 }
