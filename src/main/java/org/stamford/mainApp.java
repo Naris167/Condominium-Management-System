@@ -11,17 +11,26 @@ import javafx.stage.Stage;
 import java.lang.reflect.Method;
 
 public class mainApp extends Application {
-@Override
+    @Override
     public void start(Stage stage) throws Exception {
-        String myClass = getClass().toString();
-        Parent root = FXMLLoader.load(getClass().getResource("scene.fxml"));
+        //Creating a Stack Pane
+        StackPane pane = new StackPane();
+        Label currentUserLabel = new Label("Current User: " + "None");
+        Label systemMsgLabel = new Label("You must login before using Stamford-CMS");
+        // in-line CSS:
+        currentUserLabel.setStyle("-fx-text-fill: blue;");
+        systemMsgLabel.setStyle("-fx-text-fill: red;");
+        VBox vbox = new VBox(10);
+        vbox.getChildren().add(currentUserLabel);
+        vbox.getChildren().add(systemMsgLabel);
 
-        Scene scene = new Scene(root);
-
+        // Create a new scene
+        Scene scene = new Scene(vbox);
+        // primary stage is created by the platform (JavaFX) already
         stage.setTitle("Stamford-CMS");
         stage.setScene(scene);
         stage.show();
-}
+    }
 public static void main(String[] args) {
         launch(args);
     }
