@@ -28,11 +28,14 @@ public class mainApp extends Application {
 
         Label currentUserLabel = new Label("Current User: " + "None");
         Label systemMsgLabel = new Label("You must login before using Stamford-CMS");
-        VBox vbox = new VBox(10); // 10 is spacing between vertical nodes
-        vbox.getChildren().add(currentUserLabel);
-        vbox.getChildren().add(systemMsgLabel);
+//        VBox vbox = new VBox(10); // 10 is spacing between vertical nodes
+//        vbox.getChildren().add(currentUserLabel);
+//        vbox.getChildren().add(systemMsgLabel);
 
-        pane.getChildren().add(vbox);
+//        pane.getChildren().add(vbox);
+
+        pane.getChildren().add(currentUserLabel);
+        pane.getChildren().add(systemMsgLabel);
 
         // Create a new scene
         Scene scene = new Scene(pane);
