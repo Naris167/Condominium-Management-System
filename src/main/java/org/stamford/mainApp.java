@@ -15,17 +15,19 @@ public class mainApp extends Application {
     public void start(Stage stage) throws Exception {
         //Creating a Stack Pane
         StackPane pane = new StackPane();
+
         Label currentUserLabel = new Label("Current User: " + "None");
         Label systemMsgLabel = new Label("You must login before using Stamford-CMS");
-        // in-line CSS:
-        currentUserLabel.setStyle("-fx-text-fill: blue;");
-        systemMsgLabel.setStyle("-fx-text-fill: red;");
+
+        currentUserLabel.setId("currentUserLabel");
+        systemMsgLabel.setId("systemMsgLabel");
         VBox vbox = new VBox(10);
         vbox.getChildren().add(currentUserLabel);
         vbox.getChildren().add(systemMsgLabel);
 
         // Create a new scene
         Scene scene = new Scene(vbox);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         // primary stage is created by the platform (JavaFX) already
         stage.setTitle("Stamford-CMS");
         stage.setScene(scene);

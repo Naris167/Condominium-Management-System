@@ -1,3 +1,6 @@
-.label {
--fx-text-fill: blue;
+.label#currentUserLabel {
+    -fx-text-fill: blue;
+}
+.label#systemMsgLabel {
+    -fx-text-fill: red;
 }
