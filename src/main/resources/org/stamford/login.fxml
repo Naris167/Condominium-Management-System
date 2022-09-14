@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<!--<StackPane-->
+<!--    maxHeight="-Infinity" maxWidth="-Infinity"-->
+<!--    minHeight="-Infinity" minWidth="-Infinity"-->
+<!--    prefHeight="400.0" prefWidth="600.0"-->
+<!--    xmlns="http://javafx.com/javafx/8.0.171"-->
+<!--    xmlns:fx="http://javafx.com/fxml/1"-->
+<!--    fx:controller="org.stamford.loginController">-->
+<!--    <children>-->
+<!--        <VBox fx:id="myVBox">-->
+<!--            <Label fx:id="currentUserLabel" text="Current User: None" />-->
+<!--            <Label fx:id="systemMsgLabel" text="You must login before using Stamford-CMS" />-->
+<!--        </VBox>-->
+<!--    </children>-->
+<!--</StackPane>-->
+
+<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="600.0" styleClass="root" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="org.stamford.loginController">
+    <Text id="stamford-cms-text" text="Stamford-CMS" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+    <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="usernameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <PasswordField fx:id="passwordPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Button onAction="#handleLoginButtonAction" text="Login" />
+    </HBox>
+
+    <Label fx:id="currentUserLabel" text="Current User: None" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+    <Label fx:id="systemMsgLabel" text="You must login before using Stamford-CMS" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

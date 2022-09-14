@@ -1,0 +1,19 @@
+package Week_4;
+
+public class DigitSequence implements IntSequence { //Week4 Task 1.3.2 Implementing an Interface
+    private int number;
+    public DigitSequence(int n) {
+        number = n;
+    }
+    public boolean hasNext() {
+        return number != 0;
+    }
+    public int next() {
+        int result = number % 10;
+        number /= 10;
+        return result;
+    }
+    public int rest() {
+        return number;
+    }
+}
