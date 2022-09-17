@@ -1,5 +1,5 @@
 package Week_4;
 
 public interface Closeable {
-    void close();
+    boolean close();
 }
