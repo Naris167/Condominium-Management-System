@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class secondaryApp {
+public class week_4_App {
     public static void main(String[] args) {
         /**
          * Week4 Task 1.2.1 to 1.2.10

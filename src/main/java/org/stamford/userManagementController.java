@@ -34,56 +34,16 @@ public class userManagementController {
     private Stage stage;
     private Scene scene;
     private Parent parent;
-    private ObservableList<User> users;
+//    private ObservableList<User> users;
     private User currentUser;
     private Integer currentUserIndex;
 
     public void initialize() {
-        currentUser = new User();
-        // populate user table with system users
-        // We don’t have a database yet, so we
-        // have to create few dummy users.
-        User user1 = new User(
-                "Ehsan",
-                "Ali",
-                "ehsan.ali@stamford.edu",
-                "pass123",
-                LocalDate.of(1980, 1, 1)
-        );
-        user1.setID(1);
+        refresh(userList.users.get(0));
+    }
 
-        User user2 = new User(
-                "Sara",
-                "Ali",
-                "sara.ali@stamford.edu",
-                "sarapass123",
-                LocalDate.of(1990, 2, 3)
-        );
-        user2.setID(2);
-
-        User user3 = new User("Arash",
-                "Ghasemi",
-                "arash.ghasemi@gmail.com",
-                "arash123",
-                LocalDate.of(1981, 5, 6)
-        );
-        user3.setID(3);
-
-        users = FXCollections.observableArrayList(
-                user1, user2, user3
-        );
-        for (int i = 1; i < 20; i++) {
-            User user = new User(
-                    "Arash" + i,
-                    "Ghasemi" + i,
-                    "arash.ghasemi" + i + "@gmail.com",
-                    "arash123" + i,
-                    LocalDate.of(1981, 5, i)
-            );
-            user.setID(i + 3);
-            users.add(user);
-        }
-        usersTableView.setItems(users);
+    public void refresh(User user) {
+        usersTableView.setItems(userList.users);
         usersTableView.setEditable(true);
 
         // Obtain TableView SelectionModel Instance
@@ -91,7 +51,7 @@ public class userManagementController {
         // set selection mode to only 1 row
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
         selectionModel.select(0);
-        currentUser = user1;
+        currentUser = user;
         currentUserIndex = 0;
         IDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -111,7 +71,7 @@ public class userManagementController {
                         }
                     }
                 }
-                );
+        );
 
         selectionModel.selectedIndexProperty().addListener(
                 new ChangeListener<Number>() {
@@ -127,18 +87,19 @@ public class userManagementController {
     }
 
     public void editUserOnAction(ActionEvent actionEvent) throws IOException {
-//        Stage userCRUDStage = new Stage();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("user-crud.fxml"));
-//        Parent root = loader.load();
-//        userCRUDController controller = loader.getController();
-//        controller.setStage(userCRUDStage);
-//        controller.setCurrentUser(currentUser);
-//        controller.setParentController(this);
-//        userCRUDStage.setScene(new Scene(root));
-//        userCRUDStage.setTitle("User CRUD");
-//        userCRUDStage.initModality(Modality.WINDOW_MODAL);
-//        userCRUDStage.initOwner(stage);
-//        userCRUDStage.show();
+        Stage userCRUDStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("user-crud.fxml"));
+        Parent root = loader.load();
+        userCRUDController controller = loader.getController();
+        controller.setStage(userCRUDStage);
+        controller.setCurrentUser(currentUser);
+        controller.setParentController(this);
+        userCRUDStage.setScene(new Scene(root));
+        userCRUDStage.setTitle("Edit User CRUD");
+        userCRUDStage.initModality(Modality.WINDOW_MODAL);
+        userCRUDStage.initOwner(stage);
+        userCRUDStage.show();
+//        refresh(currentUser);
     }
 
     public void deleteUserOnAction(ActionEvent actionEvent) {
@@ -147,19 +108,19 @@ public class userManagementController {
     }
 
     public void newUserOnAction(ActionEvent actionEvent) throws IOException {
-//        Stage userCRUDStage = new Stage();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("user-crud.fxml"));
-//        Parent root = loader.load();
-//        userCRUDController controller = loader.getController();
-//        controller.setStage(userCRUDStage);
+        Stage userCRUDStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("user-crud-createNew.fxml"));
+        Parent root = loader.load();
+        userCRUDControllerCreateNew controller = loader.getController();
+        controller.setStage(userCRUDStage);
 //        User noUser = User.createNoUser();
-//        controller.setCurrentUser(noUser);
-//        controller.setParentController(this);
-//        userCRUDStage.setScene(new Scene(root));
-//        userCRUDStage.setTitle("User CRUD");
-//        userCRUDStage.initModality(Modality.WINDOW_MODAL);
-//        userCRUDStage.initOwner(stage);
-//        userCRUDStage.show();
+        controller.setCurrentUser(userList.users.get(userList.users.size()-1));
+        controller.setParentController(this);
+        userCRUDStage.setScene(new Scene(root));
+        userCRUDStage.setTitle("Create New User CRUD");
+        userCRUDStage.initModality(Modality.WINDOW_MODAL);
+        userCRUDStage.initOwner(stage);
+        userCRUDStage.show();
     }
 
     public void okOnAction(ActionEvent actionEvent) throws IOException {
@@ -171,6 +132,10 @@ public class userManagementController {
     }
 
     public void notifyUserUpdate(User user) {
-        users.set(currentUserIndex, user);
+        userList.users.set(currentUserIndex, user);
+    }
+
+    public int getLastUserID(){
+        return userList.users.get(userList.users.size()-1).getID();
     }
 }

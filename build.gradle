@@ -12,7 +12,7 @@ repositories {
 }
 
 javafx {
-    version = "16"
+    version = "18"
     modules = ['javafx.controls','javafx.fxml']
 }
 jlink {
@@ -20,4 +20,8 @@ jlink {
     launcher {
         name = 'HelloJavaFX'
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-Werror"
 }

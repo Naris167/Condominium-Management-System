@@ -1,17 +1,15 @@
 package org.stamford;
 
+import Week_9.Automobile;
+import Week_9.Coffee;
+//import Week_9.CoffeeGenerator;
+import Week_9.Holder2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.lang.reflect.Method;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class mainApp extends Application {
     private static mainApp mainApplication;
@@ -53,7 +51,25 @@ public class mainApp extends Application {
 
     }
     public static void main(String[] args) {
-//        launch(args);
+//        Holder2 h2 = new Holder2(new Automobile());
+//        Automobile a = (Automobile) h2.get();
+//        h2.set("Not an Automobile");
+//        System.out.println("h2 = " + h2);
+//        System.out.println("h2 = " + h2.get());
+//        String s = (String) h2.get();
+//        h2.set(1); // Autoboxes to Integer
+//        System.out.println("h2 = " + h2);
+//        System.out.println("h2 = " + h2.get());
+//        Integer x = (Integer) h2.get();
+//
+//        CoffeeGenerator gen = new CoffeeGenerator();
+//        for(int i = 0; i < 5; i++)
+//            System.out.println(gen.next());
+//        System.out.println("another way to generate 5 coffees of various types:");
+//        for(Coffee c : new CoffeeGenerator(5))
+//            System.out.println(c);
+        userList.initialize();
+        launch(args);
     }
 
     public static  mainApp getMainApplication(){
