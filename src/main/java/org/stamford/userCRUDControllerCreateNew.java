@@ -1,18 +1,12 @@
 package org.stamford;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class userCRUDControllerCreateNew {
@@ -54,17 +48,32 @@ public class userCRUDControllerCreateNew {
     public void initialize() {
     }
     public void okOnAction (ActionEvent actionEvent) {
-        User user1 = new User(
-                nameTextField.getText(),
-                surnameTextField.getText(),
-                emailTextField.getText(),
-                passwordTextField.getText(),
-                dateOfBirthDatePicker.getValue()
-        );
-        user1.setID(parentController.getLastUserID() + 1);
-        userList.users.add(user1);
+//        User user1 = new User(
+//                nameTextField.getText(),
+//                surnameTextField.getText(),
+//                emailTextField.getText(),
+//                passwordTextField.getText(),
+//                dateOfBirthDatePicker.getValue()
+//        );
+//        user1.setID(parentController.getLastUserID() + 1);
+//        userList.users.add(user1);
+//        if (Objects.nonNull(stage))
+//            stage.close();
+//        userList.increaseID();
+        UserGenerator userGenerator = new UserGenerator();
+        User newUser = userGenerator.next();
+        newUser.setName(nameTextField.getText());
+        newUser.setSurname(surnameTextField.getText());
+        newUser.setEmail(emailTextField.getText());
+        newUser.setPassword(passwordTextField.getText());
+        newUser.setBirthDate(dateOfBirthDatePicker.getValue());
+        //newUser.setID(currentUser.getID());
+//        parentController.notifyUserUpdate(newUser);
+        virtualDataBase.users.add(newUser);
         if (Objects.nonNull(stage))
             stage.close();
+
+
     }
 
     public void cancelOnAction (ActionEvent actionEvent) {

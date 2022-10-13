@@ -1,9 +1,6 @@
 package org.stamford;
 
-import Week_9.Automobile;
-import Week_9.Coffee;
 //import Week_9.CoffeeGenerator;
-import Week_9.Holder2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,7 +65,7 @@ public class mainApp extends Application {
 //        System.out.println("another way to generate 5 coffees of various types:");
 //        for(Coffee c : new CoffeeGenerator(5))
 //            System.out.println(c);
-        userList.initialize();
+        virtualDataBase.initialize();
         launch(args);
     }
 

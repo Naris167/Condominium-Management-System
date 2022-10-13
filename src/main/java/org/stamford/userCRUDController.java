@@ -33,15 +33,41 @@ public class userCRUDController {
     public void initialize() {
     }
     public void okOnAction (ActionEvent actionEvent) {
-        User newUser = new User(
-                nameTextField.getText(),
-                surnameTextField.getText(),
-                emailTextField.getText(),
-                passwordTextField.getText(),
-                dateOfBirthDatePicker.getValue()
-        );
-        newUser.setID(currentUser.getID());
-        parentController.notifyUserUpdate(newUser);
+//        User newUser = new User(
+//                nameTextField.getText(),
+//                surnameTextField.getText(),
+//                emailTextField.getText(),
+//                passwordTextField.getText(),
+//                dateOfBirthDatePicker.getValue()
+//        );
+//        newUser.setID(currentUser.getID());
+//        parentController.notifyUserUpdate(newUser);
+//        if (Objects.nonNull(stage))
+//            stage.close();
+
+
+
+//        userList.users.get(currentUser.getID()-1).setName(nameTextField.getText());
+//        userList.users.get(currentUser.getID()-1).setSurname(surnameTextField.getText());
+//        userList.users.get(currentUser.getID()-1).setEmail(emailTextField.getText());
+//        userList.users.get(currentUser.getID()-1).setPassword(passwordTextField.getText());
+//        userList.users.get(currentUser.getID()-1).setBirthDate(dateOfBirthDatePicker.getValue());
+
+        virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setName(nameTextField.getText());
+        virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setSurname(surnameTextField.getText());
+        virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setEmail(emailTextField.getText());
+        virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setPassword(passwordTextField.getText());
+        virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setBirthDate(dateOfBirthDatePicker.getValue());
+
+//        UserGenerator userGenerator = new UserGenerator();
+//        User newUser = userGenerator.next();
+//        newUser.setName(nameTextField.getText());
+//        newUser.setSurname(surnameTextField.getText());
+//        newUser.setEmail(emailTextField.getText());
+//        newUser.setPassword(passwordTextField.getText());
+//        newUser.setBirthDate(dateOfBirthDatePicker.getValue());
+        //newUser.setID(currentUser.getID());
+        parentController.notifyUserUpdate(virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)));
         if (Objects.nonNull(stage))
             stage.close();
     }

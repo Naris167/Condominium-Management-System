@@ -2,6 +2,21 @@ package Week_9;
 
 public class week_9_App {
     public static void main(String[] args) {
+
+
+        /**
+         * Week9 Assignment
+         */
+        System.out.println("\n------------------------------------Week9 Assignment----------------------------------");
+        GenericMethods gm = new GenericMethods();
+        gm.method("", 1, 1.0);
+        gm.method(1.0F, "c", gm);
+        System.out.println("----------------------------------------------------------------------------------------");
+
+
+
+
+
         polymorphismGeneralization pG = new polymorphismGeneralization();
         A myA = new A();
         B myB = new B();
@@ -23,6 +38,8 @@ public class week_9_App {
         System.out.println("h2 = " + h2);
         System.out.println("h2 = " + h2.get());
         Integer x = (Integer) h2.get();
+
+
 
 //
 //        Holder3<Automobile> h3 = new Holder3<Automobile>(new Automobile());

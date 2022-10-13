@@ -2,8 +2,6 @@ package org.stamford;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class userManagementController {
@@ -39,11 +36,11 @@ public class userManagementController {
     private Integer currentUserIndex;
 
     public void initialize() {
-        refresh(userList.users.get(0));
+        refresh(virtualDataBase.users.get(0));
     }
 
     public void refresh(User user) {
-        usersTableView.setItems(userList.users);
+        usersTableView.setItems(virtualDataBase.users);
         usersTableView.setEditable(true);
 
         // Obtain TableView SelectionModel Instance
@@ -114,7 +111,7 @@ public class userManagementController {
         userCRUDControllerCreateNew controller = loader.getController();
         controller.setStage(userCRUDStage);
 //        User noUser = User.createNoUser();
-        controller.setCurrentUser(userList.users.get(userList.users.size()-1));
+        controller.setCurrentUser(virtualDataBase.users.get(virtualDataBase.users.size()-1));
         controller.setParentController(this);
         userCRUDStage.setScene(new Scene(root));
         userCRUDStage.setTitle("Create New User CRUD");
@@ -132,10 +129,10 @@ public class userManagementController {
     }
 
     public void notifyUserUpdate(User user) {
-        userList.users.set(currentUserIndex, user);
+        virtualDataBase.users.set(currentUserIndex, user);
     }
 
     public int getLastUserID(){
-        return userList.users.get(userList.users.size()-1).getID();
+        return virtualDataBase.users.get(virtualDataBase.users.size()-1).getID();
     }
 }

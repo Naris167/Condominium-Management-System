@@ -43,7 +43,9 @@ public class loginController {
     @FXML protected void handleLoginButtonAction(ActionEvent event) throws IOException {
         if (Objects.equals(passwordPasswordField.getText(), "123")) {
             User user = new User();
-            user.setID(1);
+//            UserGenerator userGenerator = new UserGenerator();
+//            user.setID(1);
+//            userGenerator.next();
             user.setName(usernameTextField.getText());
             mainApp.getMainApplication().setCurrentUser(user);
             // switch to main scene
