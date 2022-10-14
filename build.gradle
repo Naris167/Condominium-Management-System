@@ -24,4 +24,5 @@ jlink {
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:unchecked" << "-Werror"
+    //options.compilerArgs << "-Xlint:deprecation,unchecked" << "-Werror"
 }

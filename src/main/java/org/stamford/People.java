@@ -1,6 +1,7 @@
 package org.stamford;
 
 import java.util.Observable;
+
 // Observable is a class
 public class People extends Observable {
     private String name;

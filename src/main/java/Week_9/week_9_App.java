@@ -13,8 +13,41 @@ public class week_9_App {
         gm.method(1.0F, "c", gm);
         System.out.println("----------------------------------------------------------------------------------------");
 
+        System.out.println("\n------------------------------------Week9 Task 3--------------------------------------");
+        Stack<Integer> stack = new Stack <> ();
+        stack.push(45);
+        stack.push(100);
+        stack.push(3);
+        // Let's pop an item
+        Integer item = (Integer) stack.pop();
+        System.out.println("Successfully Build");
+        System.out.println("----------------------------------------------------------------------------------------");
 
+        System.out.println("\n------------------------------------Week9 Question 6----------------------------------");
+        Favorites f = new Favorites();
+        f.putFavorite(Integer.class, 2106010007);
+        f.putFavorite(String.class, "Naris");
+        f.putFavorite(Float.class, 4.00f);
 
+        int favoriteInteger = f.getFavorite(Integer.class);
+        String favoriteString = f.getFavorite(String.class);
+        Float favoriteFloat = f.getFavorite(Float.class);
+//        System.out.printf("%s %x %s%n", favoriteString, favoriteInteger, favoriteClass.getName());
+
+        System.out.printf("%-17s %-23s %-12s %n", "Student ID", "Student Name", "GPA");
+        System.out.printf("%-17s %-23s %-12s %n",
+                favoriteInteger,
+                favoriteString,
+                favoriteFloat);
+
+//        for(int i = 0 ; i < f.sizeFavorite() ; i++){
+//            System.out.printf("%d) %-14s %-23s %-12s %n", i+1,
+//                    favoriteInteger,
+//                    favoriteString,
+//                    favoriteDouble);
+//        }
+
+        System.out.println("----------------------------------------------------------------------------------------");
 
 
         polymorphismGeneralization pG = new polymorphismGeneralization();
@@ -46,6 +79,7 @@ public class week_9_App {
 //        Automobile a = h3.get(); // No cast needed
         // h3.set("Not an Automobile"); // Error
         // h3.set(1); // Error
+
 
 
 

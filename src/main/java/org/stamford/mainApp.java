@@ -66,7 +66,7 @@ public class mainApp extends Application {
 //        for(Coffee c : new CoffeeGenerator(5))
 //            System.out.println(c);
         virtualDataBase.initialize();
-        launch(args);
+//        launch(args);
     }
 
     public static  mainApp getMainApplication(){
