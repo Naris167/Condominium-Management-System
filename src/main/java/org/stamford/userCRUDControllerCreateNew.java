@@ -1,15 +1,20 @@
 package org.stamford;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class userCRUDControllerCreateNew {
+public class userCRUDControllerCreateNew implements Initializable {
     @FXML
     private Label IDLabel;
     @FXML
@@ -23,43 +28,31 @@ public class userCRUDControllerCreateNew {
     @FXML
     private TextField emailTextField;
     @FXML
-    private userManagementController parentController;
+    private ChoiceBox<String> roleChoiceBox;
+
+    private Controller parentController;
     private User currentUser;
     private Stage stage;
-//    private ObservableList<User> users;
     private Scene scene;
     private Parent parent;
 
-    @FXML
-    private TableView<User> usersTableView;
-    @FXML
-    private TableColumn<User, String> IDCol;
-    @FXML
-    private TableColumn<User, String> nameCol;
-    @FXML
-    private TableColumn<User, String> surnameCol;
-    @FXML
-    private TableColumn<User, String> dateOfBirthCol;
-    @FXML
-    private TableColumn<User, String> emailCol;
-    private Integer currentUserIndex;
+    private String[] roleList = {"Administrator", "Resident", "Guest"};
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        roleChoiceBox.getItems().addAll(roleList);
+        roleChoiceBox.setOnAction(this::getRole);
+    }
+
+    public void getRole(ActionEvent actionEvent){
+        String role = roleChoiceBox.getValue();
+        System.out.println(role);
+    }
 
     public void initialize() {
     }
     public void okOnAction (ActionEvent actionEvent) {
-//        User user1 = new User(
-//                nameTextField.getText(),
-//                surnameTextField.getText(),
-//                emailTextField.getText(),
-//                passwordTextField.getText(),
-//                dateOfBirthDatePicker.getValue()
-//        );
-//        user1.setID(parentController.getLastUserID() + 1);
-//        userList.users.add(user1);
-//        if (Objects.nonNull(stage))
-//            stage.close();
-//        userList.increaseID();
+
         UserGenerator userGenerator = new UserGenerator();
         User newUser = userGenerator.next();
         newUser.setName(nameTextField.getText());
@@ -67,13 +60,11 @@ public class userCRUDControllerCreateNew {
         newUser.setEmail(emailTextField.getText());
         newUser.setPassword(passwordTextField.getText());
         newUser.setBirthDate(dateOfBirthDatePicker.getValue());
-        //newUser.setID(currentUser.getID());
-//        parentController.notifyUserUpdate(newUser);
+        newUser.setRole(roleChoiceBox.getValue());
+
         virtualDataBase.users.add(newUser);
         if (Objects.nonNull(stage))
             stage.close();
-
-
     }
 
     public void cancelOnAction (ActionEvent actionEvent) {
@@ -89,7 +80,7 @@ public class userCRUDControllerCreateNew {
         int i = 1;
         IDLabel.setText("ID: " + (currentUser.getID() + i));
         }
-    public void setParentController(userManagementController controller) {
+    public void setParentController(topController controller) {
         this.parentController = controller;
     }
 }

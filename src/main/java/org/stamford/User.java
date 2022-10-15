@@ -14,15 +14,17 @@ public class User extends Person{
 
     private String email;
     private String password;
+    private String role;
 
     public User () {
         super(); // call the superclass default constructor
 //        this.ID = 0;
         this.email = "";
         this.password = "";
+        this.role = "guest";
         //this.selected = new SimpleBooleanProperty(false);
     }
-    public User(String name, String surname, String email, String password, LocalDate birthdate) {
+    public User(String name, String surname, String email, String password, LocalDate birthdate, String role) {
         super(name, surname, birthdate);
 //        this.ID = 0;
         this.email = email;
@@ -48,6 +50,12 @@ public class User extends Person{
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getRole(){
+        return role;
+    }
+    public void setRole(String role){
+        this.role = role;
     }
 
     // factory methods
