@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="800.0" prefHeight="546.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Condominium Management" textFill="#1a753a" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+             <font>
+                 <Font name="System Bold" size="18.0" />
+             </font>
+             <GridPane.margin>
+                 <Insets left="10.0" top="10.0" />
+             </GridPane.margin>
+        </Label>
+      <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+         <children>
+            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT">
+               <children>
+                  <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#newBuildingOnAction" text="Add Building">
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+              <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT">
+                  <children>
+                      <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#editBuildingOnAction" text="Edit Building Information">
+                          <HBox.margin>
+                              <Insets bottom="5.0" right="10.0" />
+                          </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                      </Button>
+                      <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#deleteBuildingOnAction" text="Remove Building">
+                          <HBox.margin>
+                              <Insets bottom="5.0" right="10.0" />
+                          </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                      </Button>
+                  </children>
+              </HBox>
+         </children>
+      </VBox>
+      <TableView fx:id="buildingsTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+        <columns>
+          <TableColumn fx:id="buildingIDCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="buildingNameCol" prefWidth="210.0" text="Name" />
+            <TableColumn fx:id="LocationCol" prefWidth="301.0" text="Location" />
+        </columns>
+      </TableView>
+        <HBox alignment="BOTTOM_RIGHT" prefHeight="52.0" prefWidth="960.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
+            <children>
+                <Button alignment="CENTER" contentDisplay="CENTER" minWidth="70.0" mnemonicParsing="false" onAction="#okCondoMGMTOnAction" text="OK" textAlignment="CENTER">
+                    <HBox.margin>
+                         <Insets bottom="10.0" right="10.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building Information" wrappingWidth="217.55859375">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <GridPane>
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="56.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="186.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="102.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="21.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Units:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Free Units:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Owned Units:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Construction Budget:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Construction:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Construction Completion Date:" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="numberOfUnit" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Text fx:id="emptyUnit" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Text fx:id="ownedUnit" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Text fx:id="conBudget" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Text fx:id="conDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Text fx:id="completeDate" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building Size:" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="buildingSize" strokeType="OUTSIDE" strokeWidth="0.0" text="Null" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+    </children>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+    <columnConstraints>
+        <ColumnConstraints maxWidth="855.0" minWidth="456.0" prefWidth="596.0" />
+      <ColumnConstraints maxWidth="504.0" minWidth="10.0" prefWidth="364.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints prefHeight="70.0" />
+        <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="300.0" />
+        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="150.0" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="70.0" />
+    </rowConstraints>
+</GridPane>

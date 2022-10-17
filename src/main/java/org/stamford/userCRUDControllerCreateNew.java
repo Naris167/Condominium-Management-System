@@ -4,10 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -53,18 +51,44 @@ public class userCRUDControllerCreateNew implements Initializable {
     }
     public void okOnAction (ActionEvent actionEvent) {
 
-        UserGenerator userGenerator = new UserGenerator();
-        User newUser = userGenerator.next();
-        newUser.setName(nameTextField.getText());
-        newUser.setSurname(surnameTextField.getText());
-        newUser.setEmail(emailTextField.getText());
-        newUser.setPassword(passwordTextField.getText());
-        newUser.setBirthDate(dateOfBirthDatePicker.getValue());
-        newUser.setRole(roleChoiceBox.getValue());
+        if(nameTextField.getText().isEmpty()
+        ||surnameTextField.getText().isEmpty()
+        ||emailTextField.getText().isEmpty()
+        ||passwordTextField.getText().isEmpty()
+        ||dateOfBirthDatePicker.getValue().toString().isEmpty()
+        ||roleChoiceBox.getValue().isEmpty()
+        ){
+            UserGenerator.decreaseCounter();
+            Alert.AlertType type = Alert.AlertType.WARNING;
+            Alert alert = new Alert(type, "");
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.initOwner(this.stage);
+            alert.getDialogPane().setContentText("Please fill all the information and make sure that the input are correct");
+            alert.getDialogPane().setHeaderText("Incorrect or Invalid Information");
+            alert.showAndWait();
+        } else {
+            UserGenerator userGenerator = new UserGenerator();
+            User newUser = userGenerator.next();
+            newUser.setName(nameTextField.getText());
+            newUser.setSurname(surnameTextField.getText());
+            newUser.setEmail(emailTextField.getText());
+            newUser.setPassword(passwordTextField.getText());
+            newUser.setBirthDate(dateOfBirthDatePicker.getValue());
+            newUser.setRole(roleChoiceBox.getValue());
+            virtualDataBase.users.add(newUser);
 
-        virtualDataBase.users.add(newUser);
-        if (Objects.nonNull(stage))
-            stage.close();
+            Alert.AlertType type = Alert.AlertType.INFORMATION;
+            Alert alert = new Alert(type, "");
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.initOwner(this.stage);
+            alert.getDialogPane().setContentText("The new user has been added in the system");
+            alert.getDialogPane().setHeaderText("Add New User Successfully");
+            alert.showAndWait();
+
+            if (Objects.nonNull(stage))
+                stage.close();
+        }
+
     }
 
     public void cancelOnAction (ActionEvent actionEvent) {

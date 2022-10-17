@@ -4,10 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -53,6 +51,15 @@ public class userCRUDController implements Initializable {
     public void initialize() {
     }
     public void okCRUDOnAction (ActionEvent actionEvent) {
+
+        Alert.AlertType type = Alert.AlertType.INFORMATION;
+        Alert alert = new Alert(type, "");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.initOwner(this.stage);
+        alert.getDialogPane().setContentText("The selected item has been updated in the system");
+        alert.getDialogPane().setHeaderText("Edited Selected Item");
+        alert.showAndWait();
+
         virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setName(nameTextField.getText());
         virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setSurname(surnameTextField.getText());
         virtualDataBase.users.get(virtualDataBase.users.indexOf(currentUser)).setEmail(emailTextField.getText());

@@ -7,4 +7,6 @@ module HelloJavaFX {
     exports org.stamford;
     exports Week_9;
     opens Week_9 to javafx.fxml;
+    exports FinalExam;
+    opens FinalExam to javafx.fxml;
 }

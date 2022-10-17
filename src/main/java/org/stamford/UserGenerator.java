@@ -8,6 +8,9 @@ public class UserGenerator implements Generator<User> {
     public static void increaseCounter(){
         counter++;
     }
+    public static void decreaseCounter(){
+        counter--;
+    }
 
     @Override
     public User next() {

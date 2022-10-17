@@ -34,18 +34,10 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Condominium">
                     <items>
-                        <Menu mnemonicParsing="false" text="Building">
+                        <Menu mnemonicParsing="false" text="Building and Unit">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Add Building" />
-                                <MenuItem mnemonicParsing="false" text="Delete Building" />
-                                <MenuItem mnemonicParsing="false" text="Edit Building" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Unit">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Add Unit" />
-                                <MenuItem mnemonicParsing="false" text="Delete Unit" />
-                                <MenuItem mnemonicParsing="false" text="Edit Unit" />
+                                <MenuItem mnemonicParsing="false" onAction="#addUnitAndBuildingMenuOnAction" text="Add Building and Unit" />
+                                <MenuItem mnemonicParsing="false" onAction="#editUnitAndBuildingMenuOnAction" text="Building and Unit Management (Edit/Remove)" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Owner">

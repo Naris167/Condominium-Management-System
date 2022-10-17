@@ -10,16 +10,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Objects;
+import java.util.Optional;
+
 public class topController extends Controller {
+    //User Declaration
     @FXML
     private TableView<User> usersTableView;
     @FXML
@@ -38,6 +42,36 @@ public class topController extends Controller {
     private User currentUser;
     private Integer currentUserIndex;
     private Controller parentController;
+
+
+    //Buildings Declaration
+    @FXML
+    private TableView<Building> buildingsTableView;
+    @FXML
+    private TableColumn<Building, String> buildingIDCol;
+    @FXML
+    private TableColumn<Building, String> buildingNameCol;
+    @FXML
+    private TableColumn<Building, String> LocationCol;
+    @FXML
+    private Text numberOfUnit;
+    @FXML
+    private Text emptyUnit;
+    @FXML
+    private Text ownedUnit;
+    @FXML
+    private Text conBudget;
+    @FXML
+    private Text conDate;
+    @FXML
+    private Text completeDate;
+    @FXML
+    private Text buildingSize;
+    private ObservableList<Building> buildings;
+    private Building currentBuilding;
+    private Integer currentBuildingIndex;
+
+    //Top Declaration
     @FXML
     MenuBar menuBar;
     @FXML
@@ -52,11 +86,14 @@ public class topController extends Controller {
     private Label currentUserLabel;
     @FXML
     private PasswordField passwordPasswordField;
+    @FXML
+    private Label label;
     private Parent centerLoginFXML, centerMainFXML;
     private Stage stage;
     private Scene scene;
     private Parent parent;
     private boolean aUserHasLoggedIn;
+    private int userLoginIndex = 0;
 
     public topController() throws IOException {
         aUserHasLoggedIn = false;
@@ -85,19 +122,25 @@ public class topController extends Controller {
     }
 
     private boolean verifyLogin(String givenUser, String givePass){
+//        virtualDataBase.users = users;
         for(int i = 0; i < virtualDataBase.users.size(); i++ ){
-
+             if(virtualDataBase.users.get(i).getName().equals(givenUser) && virtualDataBase.users.get(i).getPassword().equals(givePass)){
+                 userLoginIndex = i;
+                 return true;
+             } else {
+                 break;
+             }
         }
-        return true;
+        return false;
     }
 
     @FXML
     protected void handleLoginButtonAction(ActionEvent event) throws IOException {
-        if (Objects.equals(passwordPasswordField.getText(), "123")) {
-//        if (verifyLogin(usernameTextField.getText(), passwordPasswordField.getText())) {
+//        if (Objects.equals(passwordPasswordField.getText(), "123")) {
+        if (verifyLogin(usernameTextField.getText(), passwordPasswordField.getText())) {
             aUserHasLoggedIn = true;
             String username = usernameTextField.getText();
-            currentUserLabel.setText("Current User: " + username);
+            currentUserLabel.setText("Current User: " + username + "   Role: " + virtualDataBase.users.get(userLoginIndex).getRole());
             systemMsgLabel.setText("User '" + username + "' is authenticated successfully.");
             // Right now we don’t have a place to save the registered users. If you save the users in some place
             // then later you can come and fetch the user data.
@@ -117,6 +160,19 @@ public class topController extends Controller {
             // Send signal to model: A new user has logged in.
         } else {
             systemMsgLabel.setText("Authentication failed, try again.");
+
+            Alert.AlertType type = Alert.AlertType.ERROR;
+            Alert alert = new Alert(type, "");
+
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.initOwner(this.stage);
+
+            alert.getDialogPane().setContentText("Please make sure that the Username and Password are correct. (case sensitive)");
+
+            alert.getDialogPane().setHeaderText("Incorrect Username or Password");
+
+            alert.showAndWait();
+
         }
     }
 
@@ -134,7 +190,20 @@ public class topController extends Controller {
     }
 
     public void condominiumManagementOnAction(ActionEvent actionEvent) throws IOException {
-        // TODO: To be implemented
+        System.out.println("Condominium Management menu item is clicked.");
+        URL url = getClass().getResource("building-mgmt.fxml");
+        FXMLLoader loader = new FXMLLoader(url);
+        loader.setController(this);
+        GridPane condominiumUserManagementFXML = loader.load();
+        borderPane.setCenter(condominiumUserManagementFXML);
+        refresh(virtualDataBase.buildings.get(0));
+        numberOfUnit.setText(Integer.toString(currentBuilding.getNumberOfUnit()));
+        emptyUnit.setText(Integer.toString(currentBuilding.getEmptyUnit()));
+        ownedUnit.setText(Integer.toString(currentBuilding.getOwnedUnit()));
+        conBudget.setText(Double.toString(currentBuilding.getConBudget()));
+        conDate.setText(currentBuilding.getConDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+        completeDate.setText(currentBuilding.getCompleteDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+        buildingSize.setText(currentBuilding.getSize());
     }
 
     public void systemSettingOnAction(ActionEvent actionEvent) throws IOException {
@@ -206,6 +275,49 @@ public class topController extends Controller {
             }
         });
     }
+    public void refresh(Building building) {
+        buildingsTableView.setItems(virtualDataBase.buildings);
+        buildingsTableView.setEditable(true);
+        // Obtain TableView SelectionModel Instance
+        TableView.TableViewSelectionModel<Building> selectionModel = buildingsTableView.getSelectionModel();
+        // set selection mode to only 1 row
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+        selectionModel.select(0);
+        currentBuilding = building;
+        currentBuildingIndex = 0;
+        buildingIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        buildingNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        LocationCol.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        selectionModel.selectedItemProperty().addListener(new ChangeListener<Building>() {
+            @Override
+            public void changed(ObservableValue<? extends Building> observable,
+                                Building oldValue, Building newValue) {
+                if (Objects.nonNull(newValue)) {
+                    System.out.println("Selection changed. Building ID = " +
+                            newValue.getID());
+                    currentBuilding = newValue;
+                    numberOfUnit.setText(Integer.toString(currentBuilding.getNumberOfUnit()));
+                    emptyUnit.setText(Integer.toString(currentBuilding.getEmptyUnit()));
+                    ownedUnit.setText(Integer.toString(currentBuilding.getOwnedUnit()));
+                    conBudget.setText(Double.toString(currentBuilding.getConBudget()));
+                    conDate.setText(currentBuilding.getConDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                    completeDate.setText(currentBuilding.getCompleteDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+                    buildingSize.setText(currentBuilding.getSize());
+                }
+            }
+        });
+        selectionModel.selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number>
+                                        observable, Number oldValue, Number newValue) {
+                if (Objects.nonNull(newValue)) {
+                    System.out.println("Selection changed. index = " + newValue
+                    );
+                    currentUserIndex = newValue.intValue();
+                }
+            }
+        });
+    }
 
     public void editUserOnAction(ActionEvent actionEvent) throws IOException {
         Stage userCRUDStage = new Stage();
@@ -223,8 +335,13 @@ public class topController extends Controller {
     }
 
     public void deleteUserOnAction(ActionEvent actionEvent) {
-        usersTableView.getItems().remove(usersTableView.getSelectionModel().getSelectedItem());
-        // Deleting user from data model goes here
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure to delete the selected item?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Confirmation to Delete Item");
+        ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+        if (result == ButtonType.YES) {
+            usersTableView.getItems().remove(usersTableView.getSelectionModel().getSelectedItem());
+            // Deleting user from data model goes here
+        }
     }
 
     public void newUserOnAction(ActionEvent actionEvent) throws IOException {
@@ -251,8 +368,58 @@ public class topController extends Controller {
     }
 
     /**
-     * This is the menu and controller for "user CRUD"
+     * Calling "Building Management" menu and its controller
      */
+    public void editBuildingOnAction(ActionEvent actionEvent) throws IOException {
+        Stage buildingCRUDStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("building-crud.fxml"));
+        Parent root = loader.load();
+        buildingCRUDController controller = loader.getController();
+        controller.setStage(buildingCRUDStage);
+        controller.setCurrentBuilding(currentBuilding);
+        controller.setParentController(this);
+        buildingCRUDStage.setScene(new Scene(root));
+        buildingCRUDStage.setTitle("Edit Building CRUD");
+        buildingCRUDStage.initModality(Modality.APPLICATION_MODAL);
+        buildingCRUDStage.initOwner(stage);
+        buildingCRUDStage.show();
+    }
+
+    public void deleteBuildingOnAction(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure to delete the selected item?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Confirmation to Delete Item");
+        ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+        if (result == ButtonType.YES) {
+            buildingsTableView.getItems().remove(buildingsTableView.getSelectionModel().getSelectedItem());
+            // Deleting user from data model goes here
+        }
+    }
+
+
+    public void newBuildingOnAction(ActionEvent actionEvent) throws IOException {
+        Stage createBuildingCRUDStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("building-crudNew.fxml"));
+        Parent root = loader.load();
+        buildingCRUDControllerNew controller = loader.getController();
+        controller.setStage(createBuildingCRUDStage);
+        controller.setCurrentBuilding(virtualDataBase.buildings.get(virtualDataBase.buildings.size() - 1));
+        controller.setParentController(this);
+        createBuildingCRUDStage.setScene(new Scene(root));
+        createBuildingCRUDStage.setTitle("Create New Building CRUD");
+        createBuildingCRUDStage.initModality(Modality.WINDOW_MODAL);
+        createBuildingCRUDStage.initOwner(stage);
+        createBuildingCRUDStage.show();
+    }
+
+    public void okCondoMGMTOnAction(ActionEvent actionEvent) throws IOException {
+        URL url = getClass().getResource("main.fxml");
+        FXMLLoader loader = new FXMLLoader(url);
+        loader.setController(this);
+        GridPane mainFXML = loader.load();
+        borderPane.setCenter(mainFXML);
+    }
+
+
 
 
     /**
@@ -266,6 +433,10 @@ public class topController extends Controller {
     @Override
     public void notifyUserUpdate(User user) {
         virtualDataBase.users.set(currentUserIndex, user);
+    }
+    @Override
+    void notifyBuildingUpdate(Building building) {
+        virtualDataBase.buildings.set(currentBuildingIndex, building);
     }
 
     public void addUserMenuOnAction(ActionEvent actionEvent) throws IOException {
@@ -302,6 +473,57 @@ public class topController extends Controller {
             GridPane systemUserManagementFXML = loader.load();
             borderPane.setCenter(systemUserManagementFXML);
             refresh(virtualDataBase.users.get(0));
+        }
+    }
+
+    public void addUnitAndBuildingMenuOnAction(ActionEvent actionEvent) throws IOException {
+        if (aUserHasLoggedIn) {
+            System.out.println("Condominium Management menu item is opened via 'Add Building' menu bar with 'New user' option.");
+            URL url = getClass().getResource("building-mgmt.fxml");
+            FXMLLoader loader = new FXMLLoader(url);
+            loader.setController(this);
+            GridPane condominiumUserManagementFXML = loader.load();
+            borderPane.setCenter(condominiumUserManagementFXML);
+            refresh(virtualDataBase.buildings.get(0));
+            numberOfUnit.setText(Integer.toString(currentBuilding.getNumberOfUnit()));
+            emptyUnit.setText(Integer.toString(currentBuilding.getEmptyUnit()));
+            ownedUnit.setText(Integer.toString(currentBuilding.getOwnedUnit()));
+            conBudget.setText(Double.toString(currentBuilding.getConBudget()));
+            conDate.setText(currentBuilding.getConDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+            completeDate.setText(currentBuilding.getCompleteDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+            buildingSize.setText(currentBuilding.getSize());
+
+            Stage createBuildingCRUDStage = new Stage();
+            loader = new FXMLLoader(getClass().getResource("building-crudNew.fxml"));
+            Parent root = loader.load();
+            buildingCRUDControllerNew controller = loader.getController();
+            controller.setStage(createBuildingCRUDStage);
+            controller.setCurrentBuilding(virtualDataBase.buildings.get(virtualDataBase.buildings.size() - 1));
+            controller.setParentController(this);
+            createBuildingCRUDStage.setScene(new Scene(root));
+            createBuildingCRUDStage.setTitle("Create New Building CRUD");
+            createBuildingCRUDStage.initModality(Modality.WINDOW_MODAL);
+            createBuildingCRUDStage.initOwner(stage);
+            createBuildingCRUDStage.show();
+        }
+    }
+
+    public void editUnitAndBuildingMenuOnAction(ActionEvent actionEvent) throws IOException {
+        if (aUserHasLoggedIn) {
+            System.out.println("Condominium Management menu item is opened via 'System User Management (Edit/Remove)' menu bar");
+            URL url = getClass().getResource("building-mgmt.fxml");
+            FXMLLoader loader = new FXMLLoader(url);
+            loader.setController(this);
+            GridPane condominiumUserManagementFXML = loader.load();
+            borderPane.setCenter(condominiumUserManagementFXML);
+            refresh(virtualDataBase.buildings.get(0));
+            numberOfUnit.setText(Integer.toString(currentBuilding.getNumberOfUnit()));
+            emptyUnit.setText(Integer.toString(currentBuilding.getEmptyUnit()));
+            ownedUnit.setText(Integer.toString(currentBuilding.getOwnedUnit()));
+            conBudget.setText(Double.toString(currentBuilding.getConBudget()));
+            conDate.setText(currentBuilding.getConDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+            completeDate.setText(currentBuilding.getCompleteDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
+            buildingSize.setText(currentBuilding.getSize());
         }
     }
 
